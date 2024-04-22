@@ -1,17 +1,25 @@
 import senfenico
 
-senfenico.api_key = 'sk_test_cf59018e-45af-41ea-b28a-5fb122636e00'
+senfenico.api_key = 'sk_test_...'
 
 
+
+"""
 #SETTLEMENT
 settlement = senfenico.Settlement.create(1000)
-print('settlement created...')
+print(settlement)
+
+settlement = senfenico.Settlement.fetch("655342d1-c1a3-44eb-aee7-a2fddcadeaf2")
 print(settlement)
 
 settlement = senfenico.Settlement.list()
 print(settlement)
 
-"""
+settlement = senfenico.Settlement.cancel("655342d1-c1a3-44eb-aee7-a2fddcadeaf2")
+print(settlement)
+
+
+
 #CHECKOUT
 init = senfenico.Checkout.initialize(100, 'http://website.com/success', 'http://www.website.com/cancel')
 print(init)
