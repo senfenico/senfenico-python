@@ -2,6 +2,9 @@ from dataclasses import dataclass, field
 import requests
 import json
 from typing import Union, List, Optional
+from senfenico.utils import SenfenicoJSONEncoder
+import json
+
 
 @dataclass
 class CheckoutData:
@@ -19,7 +22,7 @@ class CheckoutData:
     status: str
     
     def __str__(self):
-        return f'{{\n\t\t"email": {self.email},\n\t\t"reference": {self.reference},\n\t\t"charge_reference": {self.charge_reference},\n\t\t"amount": {self.amount},\n\t\t"success_url": {self.success_url},\n\t\t"cancel_url": {self.cancel_url},\n\t\t"phone": {self.phone},\n\t\t"provider": {self.provider},\n\t\t"live_mode": {self.live_mode},\n\t\t"created_at": {self.created_at},\n\t\t"updated_at": {self.status},\n\t\t"reference": {self.status}\n\t}}'
+        return json.dumps(self.__dict__, cls=SenfenicoJSONEncoder, indent=8)
 
     def __repr__(self):
         return self.__str__()
@@ -30,7 +33,7 @@ class CheckoutInitData:
     authorization_url: str
 
     def __str__(self):
-        return f'{{\n\t\t"reference": {self.reference},\n\t\t"authorization_url": {self.authorization_url}\n\t}}'
+        return json.dumps(self.__dict__, cls=SenfenicoJSONEncoder, indent=8)
 
     def __repr__(self):
         return self.__str__()
@@ -60,7 +63,7 @@ class SenfenicoObject:
 
 
     def __str__(self):
-        return f'{{\n\t"status": {self.status},\n\t"message": {self.message},\n\t"errors": {self.errors},\n\t"data": {self.data}\n}}'
+        return json.dumps(self.__dict__, cls=SenfenicoJSONEncoder, indent=4)
 
     def __repr__(self):
         return self.__str__()

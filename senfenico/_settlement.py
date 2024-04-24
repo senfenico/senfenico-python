@@ -2,7 +2,7 @@ from dataclasses import dataclass, field
 import requests
 import json
 from typing import Union, List, Optional
-
+from senfenico.utils import SenfenicoJSONEncoder
 
 @dataclass
 class SettlementData:
@@ -27,27 +27,7 @@ class SettlementData:
     usdt_wallet_address: str
 
     def __str__(self):
-        #return the dic with tab 4
-        return json.dumps(self.__dict__, indent=4)
-        return f'''{{
-            \t\t"reference": {self.reference},
-            \t\t"amount": {self.amount},
-            \t\t"fees": {self.fees},
-            \t\t"amount": {self.amount},
-            \t\t"currency": {self.currency},
-            \t\t"transaction_date": {self.transaction_date},
-            \t\t"ip_address": {self.ip_address},
-            \t\t"status": {self.status},
-            \t\t"live_mode": {self.live_mode},
-            \t\t"payment_method": {self.payment_method},
-            \t\t"provider": {self.provider},
-            \t\t"phone": {self.phone},
-            \t\t"cancelled_at": {self.cancelled_at}
-            \t\t"cancellation_reason": {self.cancellation_reason}
-            \t\t"created_at": {self.created_at}
-            \t\t"updated_at": {self.updated_at}
-            \t\t"confirmation_attempts": {self.confirmation_attempts}
-            \t}}'''
+        return json.dumps(self.__dict__, cls=SenfenicoJSONEncoder, indent=12)
 
     def __repr__(self):
         return self.__str__()
@@ -67,14 +47,14 @@ class SenfenicoObject:
         if isinstance(data, dict):
             data_obj = SettlementData(**data)
         elif isinstance(data, list):
-            data_obj = [SettlementData(item) for item in data]
+            data_obj = [SettlementData(**item) for item in data]
         else:
             data_obj = None
         return cls(status=data_dict['status'], message=data_dict['message'], errors=data_dict.get('errors'), data=data_obj)
 
 
     def __str__(self):
-        return f'{{\n\t"status": {self.status},\n\t"message": {self.message},\n\t"errors": {self.errors},\n\t"data": {self.data}\n}}'
+        return json.dumps(self.__dict__, cls=SenfenicoJSONEncoder, indent=4)
 
     def __repr__(self):
         return self.__str__()

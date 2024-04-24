@@ -1,6 +1,8 @@
 from dataclasses import dataclass
 import requests
 from typing import List, Optional
+from senfenico.utils import SenfenicoJSONEncoder
+import json
 
 
 @dataclass
@@ -10,11 +12,7 @@ class BalanceData:
     currency: str
 
     def __str__(self):
-        return f'''{{
-            \t\t"balance": {self.balance},
-            \t\t"usable_balance": {self.usable_balance},
-            \t\t"currency": {self.currency},
-            \n\t}}'''
+        return json.dumps(self.__dict__, cls=SenfenicoJSONEncoder, indent=8)
 
     def __repr__(self):
         return self.__str__()
@@ -37,7 +35,7 @@ class SenfenicoObject:
         return cls(status=data_dict['status'], message=data_dict['message'], errors=data_dict.get('errors'), data=data_obj)
 
     def __str__(self):
-        return f'{{\n\t"status": {self.status},\n\t"message": {self.message},\n\t"errors": {self.errors},\n\t"data": {self.data}\n}}'
+        return json.dumps(self.__dict__, cls=SenfenicoJSONEncoder, indent=4)
 
     def __repr__(self):
         return self.__str__()

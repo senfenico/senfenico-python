@@ -2,6 +2,9 @@ from dataclasses import dataclass, field
 import requests
 import json
 from typing import Union, List, Optional
+from senfenico.utils import SenfenicoJSONEncoder
+import json
+
 
 @dataclass
 class ChargeConfirmationAttempt:
@@ -10,14 +13,11 @@ class ChargeConfirmationAttempt:
     confirmation_status: str
 
     def __str__(self):
-        return f'''{{
-                \t\t\t\t"ip_address": {self.ip_address},
-                \t\t\t\t"attempt_date": {self.attempt_date},
-                \t\t\t\t"confirmation_status": {self.confirmation_status}
-                \t\t\t}}'''
-
+        return json.dumps(self.__dict__, cls=SenfenicoJSONEncoder, indent=12)
+        
     def __repr__(self):
         return self.__str__()
+
 
 @dataclass
 class ChargeData:
@@ -52,25 +52,7 @@ class ChargeData:
                    created_at=data_dict.get('created_at'), updated_at=data_dict.get('updated_at'), confirmation_attempts=data_obj)
 
     def __str__(self):
-        return f'''{{
-            \t\t"reference": {self.reference},
-            \t\t"amount": {self.amount},
-            \t\t"fees": {self.fees},
-            \t\t"amount": {self.amount},
-            \t\t"currency": {self.currency},
-            \t\t"transaction_date": {self.transaction_date},
-            \t\t"ip_address": {self.ip_address},
-            \t\t"status": {self.status},
-            \t\t"live_mode": {self.live_mode},
-            \t\t"payment_method": {self.payment_method},
-            \t\t"provider": {self.provider},
-            \t\t"phone": {self.phone},
-            \t\t"cancelled_at": {self.cancelled_at}
-            \t\t"cancellation_reason": {self.cancellation_reason}
-            \t\t"created_at": {self.created_at}
-            \t\t"updated_at": {self.updated_at}
-            \t\t"confirmation_attempts": {self.confirmation_attempts}
-            \t}}'''
+        return json.dumps(self.__dict__, cls=SenfenicoJSONEncoder, indent=8)
 
     def __repr__(self):
         return self.__str__()
@@ -83,7 +65,7 @@ class ChargeCreateData:
     live_mode: bool
 
     def __str__(self):
-        return f'{{\n\t\t"reference": {self.reference},\n\t\t"status": {self.status},\n\t\t"display_text": {self.display_text},\n\t\t"live_mode": {self.live_mode}\n\t}}'
+        return json.dumps(self.__dict__, cls=SenfenicoJSONEncoder, indent=8)
 
     def __repr__(self):
         return self.__str__()
@@ -112,7 +94,7 @@ class SenfenicoObject:
 
 
     def __str__(self):
-        return f'{{\n\t"status": {self.status},\n\t"message": {self.message},\n\t"errors": {self.errors},\n\t"data": {self.data}\n}}'
+        return json.dumps(self.__dict__, cls=SenfenicoJSONEncoder, indent=4)
 
     def __repr__(self):
         return self.__str__()
