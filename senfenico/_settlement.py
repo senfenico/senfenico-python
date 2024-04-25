@@ -8,7 +8,7 @@ from senfenico.utils import SenfenicoJSONEncoder
 class SettlementData:
     reference: str
     amount: int
-    payout_fees: float
+    settlement_fees: float
     currency: str
     status: str
     live_mode: bool
@@ -66,7 +66,7 @@ class Settlement:
     def create(cls, amount: int) -> SenfenicoObject:
         from senfenico import api_key
         
-        url = "https://api.senfenico.com/v1/payment/payouts/"
+        url = "https://api.senfenico.com/v1/payment/settlements/"
 
         payload = json.dumps({
             "amount": amount
@@ -86,7 +86,7 @@ class Settlement:
     @classmethod
     def fetch(cls, settlement_reference) -> SenfenicoObject:
         from senfenico import api_key
-        url = f"https://api.senfenico.com/v1/payment/payouts/{settlement_reference}"
+        url = f"https://api.senfenico.com/v1/payment/settlements/{settlement_reference}"
 
         payload = {}
         headers = {
@@ -102,7 +102,7 @@ class Settlement:
     @classmethod
     def list(cls) -> SenfenicoObject:
         from senfenico import api_key
-        url = "https://api.senfenico.com/v1/payment/payouts"
+        url = "https://api.senfenico.com/v1/payment/settlements"
 
         payload = {}
         headers = {
@@ -118,7 +118,7 @@ class Settlement:
     @classmethod
     def cancel(cls, settlement_reference) -> SenfenicoObject:
         from senfenico import api_key
-        url = f"https://api.senfenico.com/v1/payment/payouts/{settlement_reference}/cancel/"
+        url = f"https://api.senfenico.com/v1/payment/settlements/{settlement_reference}/cancel/"
 
         payload = {}
         headers = {
