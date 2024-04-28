@@ -36,7 +36,7 @@ class ChargeData:
     cancellation_reason: str
     created_at: str
     updated_at: str
-    confirmation_attempts: Optional[list[ChargeConfirmationAttempt]] = field(default_factory=list)
+    confirmation_attempts: Optional[List[ChargeConfirmationAttempt]] = field(default_factory=list)
 
     @classmethod
     def from_dict(cls, data_dict):
