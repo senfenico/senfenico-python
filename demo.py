@@ -1,6 +1,8 @@
 import senfenico
-senfenico.api_key = 'sk_test_...'
+senfenico.api_key = 'sk_live_3bd5048b-46fb-4b3d-b77f-bca65f93b191'
 
+charge_list = senfenico.Charge.list()
+print(charge_list)
 
 """
 #SETTLEMENT
