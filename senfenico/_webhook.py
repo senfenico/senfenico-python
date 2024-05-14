@@ -54,7 +54,7 @@ class Webhook:
         if not isinstance(payload, dict):
             payload = json.loads(payload)
 
-        payload_str = json.dumps(payload, sort_keys=True) + webhook_key
+        payload_str = json.dumps(payload, sort_keys=False) + webhook_key
 
         computed_hash = hashlib.sha256(payload_str.encode('utf-8')).hexdigest()
         if webhook_hash != computed_hash:
