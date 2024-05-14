@@ -6,7 +6,7 @@ long_description = (here / 'README.md').read_text(encoding='utf-8')
 
 setup(
     name='senfenico',
-    version='0.2.0',
+    version='0.2.1',
 
     description="Python bindings for the Senfenico API",
     long_description=long_description,
