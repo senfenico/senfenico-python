@@ -44,8 +44,18 @@ class SenfenicoObject:
     status: bool
     message: str
     data: Union[CheckoutInitData, CheckoutData, List[CheckoutData]]
+    error_code: Optional[str] = None
     errors: Optional[str] = None
 
+    def __post_init__(self):
+        # Remove fields that are None
+        if self.error_code is None:
+            del self.__dict__['error_code']
+        if self.errors is None:
+            del self.__dict__['errors']
+        if self.data is None:
+            del self.__dict__['data']
+    
     @classmethod
     def from_dict(cls, data_dict):
         data = data_dict.get('data')

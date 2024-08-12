@@ -76,7 +76,17 @@ class SenfenicoObject:
     status: bool
     message: str
     data: Union[ChargeCreateData, ChargeData, List[ChargeData]]
+    error_code: Optional[str] = None
     errors: Optional[str] = None
+
+    def __post_init__(self):
+        # Remove fields that are None
+        if self.error_code is None:
+            del self.__dict__['error_code']
+        if self.errors is None:
+            del self.__dict__['errors']
+        if self.data is None:
+            del self.__dict__['data']
 
     @classmethod
     def from_dict(cls, data_dict):
@@ -90,7 +100,7 @@ class SenfenicoObject:
             data_obj = [ChargeData.from_dict(item) for item in data]
         else:
             data_obj = None
-        return cls(status=data_dict['status'], message=data_dict['message'], errors=data_dict.get('errors'), data=data_obj)
+        return cls(status=data_dict['status'], message=data_dict['message'], error_code=data_dict.get('error_code'), errors=data_dict.get('errors'), data=data_obj)
 
 
     def __str__(self):
@@ -98,6 +108,7 @@ class SenfenicoObject:
 
     def __repr__(self):
         return self.__str__()
+
 
 
 class Charge:
