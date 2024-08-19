@@ -31,7 +31,8 @@ class CheckoutData:
 class CheckoutInitData:
     reference: str
     authorization_url: str
-
+    live_mode: bool
+    
     def __str__(self):
         return json.dumps(self.__dict__, cls=SenfenicoJSONEncoder, indent=8)
 
