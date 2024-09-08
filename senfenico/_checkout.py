@@ -69,7 +69,7 @@ class SenfenicoObject:
             data_obj = [CheckoutData(**item) for item in data]
         else:
             data_obj = None
-        return cls(status=data_dict['status'], message=data_dict['message'], errors=data_dict.get('errors'), data=data_obj)
+        return cls(status=data_dict['status'], message=data_dict['message'], errors=data_dict.get('errors'), data=data_obj, error_code=data_dict.get('error_code'))
 
 
 

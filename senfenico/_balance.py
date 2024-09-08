@@ -123,7 +123,7 @@ class SenfenicoObject:
             data_obj = BalanceData.from_dict(data)
         else:
             data_obj = None
-        return cls(status=data_dict['status'], message=data_dict['message'], errors=data_dict.get('errors'), data=data_obj)
+        return cls(status=data_dict['status'], message=data_dict['message'], errors=data_dict.get('errors'), data=data_obj, error_code=data_dict.get('error_code'))
 
     def __str__(self):
         return json.dumps(self.__dict__, cls=SenfenicoJSONEncoder, indent=4)
